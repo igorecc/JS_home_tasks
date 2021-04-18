@@ -8,7 +8,7 @@
   </head>
   <body>
     <script>
-      let name, secondName, otch, gender, pens, ageDays, result;
+      let name, secondName, otch, male, gender, pens, ageDays, result;
       function ValidateForm(ask, type, value) {
         if (type === "string") {
           do {
@@ -34,7 +34,7 @@
       secondName = ValidateForm("second name", "string");
       otch = ValidateForm("patronymic", "string");
       age = parseInt(ValidateForm("age", "int"));
-      var male = confirm("Пол мужской?");
+      male = confirm("Пол мужской?");
       if (male) {
         gender = "Мужской";
         if (age >= 65) {
