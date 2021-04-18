@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let name, secondName, otch, gender, pens, ageDays, result;
+      function ValidateForm(ask, type, value) {
+        if (type === "string") {
+          do {
+            value = prompt("enter " + ask, "");
+          } while (value === null || value.length === 0);
+          //  value[0] = value[0].toUpperCase;
+          return value;
+        } else {
+          do {
+            value = prompt(`enter ${ask}`, "");
+            //  value = prompt("enter " + ask, "");
+            console.log(Number(value));
+          } while (
+            value === null ||
+            value.length === 0 ||
+            isNaN(Number(value))
+          );
+          return value;
+        }
+      }
+
+      name = ValidateForm("firstname", "string");
+      secondName = ValidateForm("second name", "string");
+      otch = ValidateForm("patronymic", "string");
+      age = parseInt(ValidateForm("age", "int"));
+      var male = confirm("Пол мужской?");
+      if (male) {
+        gender = "Мужской";
+        if (age >= 65) {
+          pens = "Да";
+        } else {
+          pens = "Нет";
+        }
+      } else {
+        gender = "Женский";
+        if (age >= 60) {
+          pens = "Да";
+        } else {
+          pens = "Нет";
+        }
+      }
+      ageDays = age * 360;
+      result = `ваше ФИО: ${name} ${secondName} ${otch}
+      \nваш возраст в годах: ${age}
+      \nваш возраст в днях: ${ageDays}
+      \nчерез 5 лет вам будет: ${age + 5}
+      \nваш пол: ${gender}
+      \nвы на пенсии: ${pens}`;
+      alert(result);
+    </script>
+  </body>
+</html>
