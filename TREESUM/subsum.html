@@ -10,9 +10,8 @@
     <script>
       let arr = [5, 7, [4, [2], 8, [1, 3], 2], [9, []], 1, 8],
         l = 0,
-        sum = 0;
-      // subsum = 0;
-      l = arr.length;
+        sum = 0,
+        result = 0;
 
       function subsum(ar) {
         ar.forEach(function (value) {
@@ -22,13 +21,10 @@
             sum += value;
           }
         });
+        return sum;
       }
-      subsum(arr);
-      console.log(sum);
-
-      //   console.log(l);
-      //   console.log(sum);
-      //  console.log(subsum);
+      result = subsum(arr);
+      console.log(result);
     </script>
   </body>
 </html>
