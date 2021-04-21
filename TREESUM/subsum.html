@@ -9,21 +9,19 @@
   <body>
     <script>
       let arr = [5, 7, [4, [2], 8, [1, 3], 2], [9, []], 1, 8],
-        l = 0,
-        sum = 0,
         result = 0;
 
-      function subsum(ar) {
+      function subsum(ar, sum) {
         ar.forEach(function (value) {
           if (Array.isArray(value)) {
-            subsum(value);
+            sum = sum + subsum(value, 0);
           } else {
-            sum += value;
+            sum = sum + value;
           }
         });
         return sum;
       }
-      result = subsum(arr);
+      result = subsum(arr, 0);
       console.log(result);
     </script>
   </body>
