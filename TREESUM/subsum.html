@@ -11,17 +11,18 @@
       let arr = [5, 7, [4, [2], 8, [1, 3], 2], [9, []], 1, 8],
         result = 0;
 
-      function subsum(ar, sum) {
+      function subsum(ar) {
+        let sum = 0;
         ar.forEach(function (value) {
           if (Array.isArray(value)) {
-            sum = sum + subsum(value, 0);
+            sum += subsum(value);
           } else {
-            sum = sum + value;
+            sum += value;
           }
         });
         return sum;
       }
-      result = subsum(arr, 0);
+      result = subsum(arr);
       console.log(result);
     </script>
   </body>
