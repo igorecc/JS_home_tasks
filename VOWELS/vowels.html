@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let str = prompt("enter string", "");
+      function validateUnicode(string) {
+        let strL = string.length;
+        let count = 0;
+        for (let i = 0; i < strL; i++) {
+          if (
+            (string.charCodeAt(i) === 1040) |
+            (string.charCodeAt(i) === 1072) |
+            (string.charCodeAt(i) === 1045) |
+            (string.charCodeAt(i) === 1077) |
+            (string.charCodeAt(i) === 1025) |
+            (string.charCodeAt(i) === 1105) |
+            (string.charCodeAt(i) === 1048) |
+            (string.charCodeAt(i) === 1080) |
+            (string.charCodeAt(i) === 1054) |
+            (string.charCodeAt(i) === 1086) |
+            (string.charCodeAt(i) === 1059) |
+            (string.charCodeAt(i) === 1091) |
+            (string.charCodeAt(i) === 1067) |
+            (string.charCodeAt(i) === 1099) |
+            (string.charCodeAt(i) === 1069) |
+            (string.charCodeAt(i) === 1101) |
+            (string.charCodeAt(i) === 1070) |
+            (string.charCodeAt(i) === 1102) |
+            (string.charCodeAt(i) === 1071) |
+            (string.charCodeAt(i) === 1103)
+          ) {
+            count++;
+          }
+        }
+        return count;
+      }
+      console.log(validateUnicode(str));
+    </script>
+  </body>
+</html>
