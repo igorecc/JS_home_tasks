@@ -9,32 +9,37 @@
   <body>
     <script>
       let str = prompt("enter string", "");
+
       function validateUnicode(string) {
         let strL = string.length;
-        let count = 0;
+        let count = 0,
+          code = 0;
+        let russianUnicodes = [
+          1040,
+          1072,
+          1045,
+          1077,
+          1025,
+          1105,
+          1048,
+          1080,
+          1054,
+          1086,
+          1059,
+          1091,
+          1067,
+          1099,
+          1069,
+          1101,
+          1070,
+          1102,
+          1071,
+          1103,
+        ];
+
         for (let i = 0; i < strL; i++) {
-          if (
-            (string.charCodeAt(i) === 1040) |
-            (string.charCodeAt(i) === 1072) |
-            (string.charCodeAt(i) === 1045) |
-            (string.charCodeAt(i) === 1077) |
-            (string.charCodeAt(i) === 1025) |
-            (string.charCodeAt(i) === 1105) |
-            (string.charCodeAt(i) === 1048) |
-            (string.charCodeAt(i) === 1080) |
-            (string.charCodeAt(i) === 1054) |
-            (string.charCodeAt(i) === 1086) |
-            (string.charCodeAt(i) === 1059) |
-            (string.charCodeAt(i) === 1091) |
-            (string.charCodeAt(i) === 1067) |
-            (string.charCodeAt(i) === 1099) |
-            (string.charCodeAt(i) === 1069) |
-            (string.charCodeAt(i) === 1101) |
-            (string.charCodeAt(i) === 1070) |
-            (string.charCodeAt(i) === 1102) |
-            (string.charCodeAt(i) === 1071) |
-            (string.charCodeAt(i) === 1103)
-          ) {
+          code = string.charCodeAt(i);
+          if (russianUnicodes.includes(code)) {
             count++;
           }
         }
