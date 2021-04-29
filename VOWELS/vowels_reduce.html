@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let str = prompt("enter string", "");
+      let arr = str.split("");
+      let reduced = 0;
+      let russian = [
+        "А",
+        "а",
+        "Е",
+        "е",
+        "И",
+        "и",
+        "О",
+        "о",
+        "У",
+        "у",
+        "Э",
+        "э",
+        "Ю",
+        "ю",
+        "Я",
+        "я",
+        "Ё",
+        "ё",
+        "Ы",
+        "ы",
+      ];
+      reduced = arr.reduce(reducing, 0);
+      function reducing(count, item) {
+        if (russian.includes(item)) {
+          count++;
+        }
+        return count;
+      }
+      console.log(reduced);
+    </script>
+  </body>
+</html>
