@@ -33,14 +33,18 @@
         "Ы",
         "ы",
       ];
-      reduced = arr.reduce(reducing, 0);
+
+      function redunction(array) {
+        return (reduced = array.reduce(reducing, 0));
+      }
+
       function reducing(count, item) {
         if (russian.includes(item)) {
           count++;
         }
         return count;
       }
-      console.log(reduced);
+      console.log(redunction(arr));
     </script>
   </body>
 </html>
