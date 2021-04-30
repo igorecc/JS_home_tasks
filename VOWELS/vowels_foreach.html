@@ -33,12 +33,17 @@
         "Ы",
         "ы",
       ];
-      arr.forEach(function (item) {
-        if (russian.includes(item)) {
-          count++;
-        }
-      });
-      console.log(count);
+
+      function freach(array) {
+        arr.forEach(function (item) {
+          if (russian.includes(item)) {
+            count++;
+          }
+        });
+        return count;
+      }
+
+      console.log(freach(arr));
     </script>
   </body>
 </html>
