@@ -9,9 +9,8 @@
   <body>
     <script>
       let str = prompt("enter string", "");
-      let count = 0;
       let arr = str.split("");
-      let filtered = [];
+      let filteredArray = [];
       let russian = [
         "А",
         "а",
@@ -34,8 +33,13 @@
         "Ы",
         "ы",
       ];
-      filtered = arr.filter((item) => russian.includes(item));
-      console.log(filtered.length);
+
+      function filtered(array) {
+        filteredArray = arr.filter((item) => russian.includes(item));
+        return filteredArray.length;
+      }
+
+      console.log(filtered(arr));
     </script>
   </body>
 </html>
