@@ -9,33 +9,33 @@
   <body>
     <script>
       let str = prompt("enter string", "");
-      let count = 0;
-      let arr = str.split("");
-      let russian = [
-        "А",
-        "а",
-        "Е",
-        "е",
-        "И",
-        "и",
-        "О",
-        "о",
-        "У",
-        "у",
-        "Э",
-        "э",
-        "Ю",
-        "ю",
-        "Я",
-        "я",
-        "Ё",
-        "ё",
-        "Ы",
-        "ы",
-      ];
 
-      function freach(array) {
-        array.forEach(function (item) {
+      function freach(string) {
+        let count = 0;
+        let arr = string.split("");
+        let russian = [
+          "А",
+          "а",
+          "Е",
+          "е",
+          "И",
+          "и",
+          "О",
+          "о",
+          "У",
+          "у",
+          "Э",
+          "э",
+          "Ю",
+          "ю",
+          "Я",
+          "я",
+          "Ё",
+          "ё",
+          "Ы",
+          "ы",
+        ];
+        arr.forEach(function (item) {
           if (russian.includes(item)) {
             count++;
           }
@@ -43,7 +43,7 @@
         return count;
       }
 
-      console.log(freach(arr));
+      console.log(freach(str));
     </script>
   </body>
 </html>
