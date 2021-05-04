@@ -9,42 +9,43 @@
   <body>
     <script>
       let str = prompt("enter string", "");
-      let arr = str.split("");
-      let reduced = 0;
-      let russian = [
-        "А",
-        "а",
-        "Е",
-        "е",
-        "И",
-        "и",
-        "О",
-        "о",
-        "У",
-        "у",
-        "Э",
-        "э",
-        "Ю",
-        "ю",
-        "Я",
-        "я",
-        "Ё",
-        "ё",
-        "Ы",
-        "ы",
-      ];
 
-      function redunction(array) {
-        return (reduced = array.reduce(reducing, 0));
+      function redunction(string) {
+        let arr = str.split("");
+        let reduced = 0;
+
+        return (reduced = arr.reduce(reducing, 0));
       }
 
       function reducing(count, item) {
+        let russian = [
+          "А",
+          "а",
+          "Е",
+          "е",
+          "И",
+          "и",
+          "О",
+          "о",
+          "У",
+          "у",
+          "Э",
+          "э",
+          "Ю",
+          "ю",
+          "Я",
+          "я",
+          "Ё",
+          "ё",
+          "Ы",
+          "ы",
+        ];
         if (russian.includes(item)) {
           count++;
         }
         return count;
       }
-      console.log(redunction(arr));
+      console.log(redunction(str));
     </script>
   </body>
 </html>
