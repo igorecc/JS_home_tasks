@@ -9,37 +9,37 @@
   <body>
     <script>
       let str = prompt("enter string", "");
-      let arr = str.split("");
-      let filteredArray = [];
-      let russian = [
-        "А",
-        "а",
-        "Е",
-        "е",
-        "И",
-        "и",
-        "О",
-        "о",
-        "У",
-        "у",
-        "Э",
-        "э",
-        "Ю",
-        "ю",
-        "Я",
-        "я",
-        "Ё",
-        "ё",
-        "Ы",
-        "ы",
-      ];
 
-      function filtered(array) {
-        filteredArray = array.filter((item) => russian.includes(item));
+      function filtered(string) {
+        let arr = string.split("");
+        let filteredArray = [];
+        let russian = [
+          "А",
+          "а",
+          "Е",
+          "е",
+          "И",
+          "и",
+          "О",
+          "о",
+          "У",
+          "у",
+          "Э",
+          "э",
+          "Ю",
+          "ю",
+          "Я",
+          "я",
+          "Ё",
+          "ё",
+          "Ы",
+          "ы",
+        ];
+        filteredArray = arr.filter((item) => russian.includes(item));
         return filteredArray.length;
       }
 
-      console.log(filtered(arr));
+      console.log(filtered(str));
     </script>
   </body>
 </html>
