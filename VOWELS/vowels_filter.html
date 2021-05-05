@@ -11,30 +11,10 @@
       let str = prompt("enter string", "");
 
       function filtered(string) {
-        let arr = string.split("");
+        let arr = string.toLowerCase().split("");
         let filteredArray = [];
-        let russian = [
-          "А",
-          "а",
-          "Е",
-          "е",
-          "И",
-          "и",
-          "О",
-          "о",
-          "У",
-          "у",
-          "Э",
-          "э",
-          "Ю",
-          "ю",
-          "Я",
-          "я",
-          "Ё",
-          "ё",
-          "Ы",
-          "ы",
-        ];
+        let russian = ["а", "е", "и", "о", "у", "э", "ю", "я", "ё", "ы"];
+
         filteredArray = arr.filter((item) => russian.includes(item));
         return filteredArray.length;
       }
