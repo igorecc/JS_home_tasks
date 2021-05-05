@@ -11,35 +11,15 @@
       let str = prompt("enter string", "");
 
       function redunction(string) {
-        let arr = str.split("");
+        let arr = string.toLowerCase().split("");
         let reduced = 0;
 
         return (reduced = arr.reduce(reducing, 0));
       }
 
       function reducing(count, item) {
-        let russian = [
-          "А",
-          "а",
-          "Е",
-          "е",
-          "И",
-          "и",
-          "О",
-          "о",
-          "У",
-          "у",
-          "Э",
-          "э",
-          "Ю",
-          "ю",
-          "Я",
-          "я",
-          "Ё",
-          "ё",
-          "Ы",
-          "ы",
-        ];
+        let russian = ["а", "е", "и", "о", "у", "э", "ю", "я", "ё", "ы"];
+
         if (russian.includes(item)) {
           count++;
         }
