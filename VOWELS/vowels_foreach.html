@@ -12,29 +12,8 @@
 
       function freach(string) {
         let count = 0;
-        let arr = string.split("");
-        let russian = [
-          "А",
-          "а",
-          "Е",
-          "е",
-          "И",
-          "и",
-          "О",
-          "о",
-          "У",
-          "у",
-          "Э",
-          "э",
-          "Ю",
-          "ю",
-          "Я",
-          "я",
-          "Ё",
-          "ё",
-          "Ы",
-          "ы",
-        ];
+        let arr = string.toLowerCase().split("");
+        let russian = ["а", "е", "и", "о", "у", "э", "ю", "я", "ё", "ы"];
         arr.forEach(function (item) {
           if (russian.includes(item)) {
             count++;
