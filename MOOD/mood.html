@@ -26,17 +26,17 @@
           "фиолетовый",
         ];
         let colorUnique = {};
+        let i = 1;
 
-        console.log("цветов: " + colorsCount);
-        for (var i = 1; i <= colorsCount; i++) {
+        do {
           var n = randomDiap(1, 7);
           var colorName = colors[n];
-          console.log(colorName);
 
           if (!(colorName in colorUnique)) {
             colorUnique[colorName] = 1;
+            i++;
           }
-        }
+        } while (i <= colorsCount);
 
         console.log("неповторяющиеся цвета: ");
 
@@ -44,7 +44,7 @@
           console.log(key);
         }
       }
-      mood(4);
+      mood(7);
     </script>
   </body>
 </html>
