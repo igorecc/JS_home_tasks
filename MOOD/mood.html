@@ -31,15 +31,19 @@
         for (var i = 1; i <= colorsCount; i++) {
           var n = randomDiap(1, 7);
           var colorName = colors[n];
+          console.log(colorName);
+
           if (!(colorName in colorUnique)) {
             colorUnique[colorName] = 1;
           }
-
-          console.log(colorName);
         }
-        console.log(colorUnique);
-      }
 
+        console.log("неповторяющиеся цвета: ");
+
+        for (let key in colorUnique) {
+          console.log(key);
+        }
+      }
       mood(4);
     </script>
   </body>
