@@ -18,70 +18,99 @@
       onclick="getcocktails()"
       value="получение информации о напитке"
     />
+    <input
+      type="button"
+      onclick="removecocktails()"
+      value="удаление информации о напитке"
+    />
+    <input
+      type="button"
+      onclick="listcocktails()"
+      value="перечень всех напитков"
+    />
 
     <script>
-            function HashStorageFunc() {
-              this.alcoStorage = {};
-              this.arrayCoctails = [];
+      function HashStorageFunc() {
+        this.alcoStorage = {};
+        this.arrayCoctails = [];
 
-              this.addValue = function (key, value) {
-                this.alcoStorage[key] = value;
-                console.log(this.alcoStorage);
-              };
-              this.getValue = function (key) {
-                if (key in this.alcoStorage) {
-                  return this.alcoStorage;
-       //           console.log(this.alcoStorage[key]);
-                } else {
-                  return undefined;
-      //            console.log("undefined");
-                }
-              };
-              this.deleteValue = function (key) {
-                if (key in this.alcoStorage) {
-                  delete this.alcoStorage[key];
-                  return true;
-                } else {
-                  console.log("nothing to delete");
-                  return false;
-                }
-              };
-              this.getsKeys = function () {
-                for (let prop in this.alcoStorage) {
-                  this.arrayCoctails.push(prop);
-                }
-                console.log(this.arrayCoctails);
-              };
-            }
-            let value = { alco: "yes", more: "mix1 + mix2 + mix3" };
-            let drinkStorage = new HashStorageFunc();
-            // drinkStorage.addValue("sambuca", value);
-            // drinkStorage.addValue("vodka", "blablabla");
-            // drinkStorage.addValue("wheeskey", "samogon");
-            // drinkStorage.addValue("wine", "red");
-            // drinkStorage.addValue("tolteca", "green");
+        this.addValue = function (key, value) {
+          this.alcoStorage[key] = value;
+          console.log(this.alcoStorage);
+        };
+        this.getValue = function (key) {
+          if (key in this.alcoStorage) {
+            return this.alcoStorage;
+          } else {
+            return undefined;
+          }
+        };
+        this.deleteValue = function (key) {
+          if (key in this.alcoStorage) {
+            delete this.alcoStorage[key];
+            return true;
+          } else {
+            console.log("nothing to delete");
+            return false;
+          }
+        };
+        this.getsKeys = function () {
+          for (let prop in this.alcoStorage) {
+            this.arrayCoctails.push(prop);
+          }
+          return this.arrayCoctails;
+        };
+      }
 
-            // drinkStorage.getValue("sambuca");
-            // drinkStorage.deleteValue("vodka");
-            // drinkStorage.deleteValue("vooodka");
-            // drinkStorage.getsKeys();
+      let drinkStorage = new HashStorageFunc();
 
-            function addcocktails() {
-              let key = prompt("please enter cocktail name", "");
-              let alcoholic = prompt(" is it alcoholic", "");
-              let ingridients = prompt("add more about ingridients", "");
-              let value = {
-                alco: alcoholic,
-                more: ingridients,
-              };
-              drinkStorage.addValue(key, value);
-            }
-            function getcocktails();{
-              let check = prompt('please enter cocktail ','');
-                      drinkStorage.getValue(key);
+      function addcocktails() {
+        let key = prompt("please enter cocktail name", "");
+        let alcoholic = prompt(" is it alcoholic", "");
+        let ingridients = prompt("add more about ingridients", "");
+        let value = {
+          alco: alcoholic,
+          more: ingridients,
+        };
+        drinkStorage.addValue(key, value);
+      }
+      function getcocktails() {
+        let info = {};
+        let check = prompt("please enter cocktail ", "");
+        info = drinkStorage.getValue(check);
 
-
-            }
+        if (info == undefined) {
+          return alert("no such cocktail");
+        } else {
+          // let insert1 = info.alco;
+          // let insert2 = info.more;
+          alert(
+            `напиток ${check} \n алкогольный: ${info.alco} \n рецепт приготовления: \n ${info.more}`
+          );
+          // alert(
+          //   `cocktail ${check} \n alcoholic: ${insert1} \n recipe: \n ${insert2}`
+          // );
+        }
+      }
+      function removecocktails() {
+        let result;
+        let target = prompt("please enter cocktail ", "");
+        result = drinkStorage.deleteValue(target);
+        if (result == true) {
+          alert("deleted");
+        } else {
+          alert("no such cocktail");
+        }
+      }
+      function listcocktails() {
+        let arrResult = [];
+        let insertResult = [];
+        arrResult = drinkStorage.getsKeys();
+        arrResult.forEach(function (item) {
+          insertResult += `${item} \n`;
+        });
+        alert(`list of all cocktails :\n${insertResult}`);
+      }
     </script>
   </body>
 </html>
