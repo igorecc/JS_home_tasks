@@ -36,7 +36,6 @@
 
         this.addValue = function (key, value) {
           this.alcoStorage[key] = value;
-          console.log(this.alcoStorage);
         };
         this.getValue = function (key) {
           if (key in this.alcoStorage) {
@@ -50,7 +49,6 @@
             delete this.alcoStorage[key];
             return true;
           } else {
-            console.log("nothing to delete");
             return false;
           }
         };
