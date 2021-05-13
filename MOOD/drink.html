@@ -31,29 +31,29 @@
 
     <script>
       function HashStorageFunc() {
-        this.alcoStorage = {};
-        this.arrayCoctails = [];
+        this.storage = {};
 
         this.addValue = function (key, value) {
-          this.alcoStorage[key] = value;
+          this.storage[key] = value;
         };
         this.getValue = function (key) {
-          if (key in this.alcoStorage) {
-            return this.alcoStorage;
+          if (key in this.storage) {
+            return this.storage;
           } else {
             return undefined;
           }
         };
         this.deleteValue = function (key) {
-          if (key in this.alcoStorage) {
-            delete this.alcoStorage[key];
+          if (key in this.storage) {
+            delete this.storage[key];
             return true;
           } else {
             return false;
           }
         };
         this.getsKeys = function () {
-          for (let prop in this.alcoStorage) {
+          this.arrayCoctails = [];
+          for (let prop in this.storage) {
             this.arrayCoctails.push(prop);
           }
           return this.arrayCoctails;
