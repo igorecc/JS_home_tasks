@@ -38,7 +38,7 @@
         };
         this.getValue = function (key) {
           if (key in this.storage) {
-            return this.storage;
+            return this.storage[key];
           } else {
             return undefined;
           }
@@ -80,14 +80,9 @@
         if (info == undefined) {
           return alert("no such cocktail");
         } else {
-          // let insert1 = info.alco;
-          // let insert2 = info.more;
           alert(
-            `напиток ${check} \n алкогольный: ${info.alco} \n рецепт приготовления: \n ${info.more}`
+            `напиток: ${check} \nалкогольный: ${info.alco} \nрецепт приготовления: \n ${info.more}`
           );
-          // alert(
-          //   `cocktail ${check} \n alcoholic: ${insert1} \n recipe: \n ${insert2}`
-          // );
         }
       }
       function removecocktails() {
