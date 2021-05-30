@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input
+      type="button"
+      onclick="addcocktails()"
+      value="ввод информации о напитке"
+    />
+
+    <input
+      type="button"
+      onclick="getcocktails()"
+      value="получение информации о напитке"
+    />
+    <input
+      type="button"
+      onclick="removecocktails()"
+      value="удаление информации о напитке"
+    />
+    <input
+      type="button"
+      onclick="listcocktails()"
+      value="перечень всех напитков"
+    />
+    <script>
+      class HashStorageClass {
+        constructor() {
+          this.storage = {};
+        }
+        addValue(key, value) {
+          this.storage[key] = value;
+        }
+        getValue(key) {
+          if (key in this.storage) {
+            return this.storage[key];
+          } else {
+            return undefined;
+          }
+        }
+        deleteValue(key) {
+          if (key in this.storage) {
+            delete this.storage[key];
+            return true;
+          } else {
+            return false;
+          }
+        }
+        getsKeys() {
+          let arrayCoctails = [];
+          for (let prop in this.storage) {
+            arrayCoctails.push(prop);
+          }
+          return arrayCoctails;
+        }
+      }
+      let drinkStorage = new HashStorageClass();
+      function addcocktails() {
+        let key = prompt("please enter cocktail name", "");
+        let alcoholic = prompt(" is it alcoholic", "");
+        let ingridients = prompt("add more about ingridients", "");
+        let value = {
+          alco: alcoholic,
+          more: ingridients,
+        };
+        drinkStorage.addValue(key, value);
+      }
+      function getcocktails() {
+        let info = {};
+        let check = prompt("please enter cocktail ", "");
+        info = drinkStorage.getValue(check);
+
+        if (info == undefined) {
+          return alert("no such cocktail");
+        } else {
+          alert(
+            `напиток: ${check} \nалкогольный: ${info.alco} \nрецепт приготовления: \n ${info.more}`
+          );
+        }
+      }
+      function removecocktails() {
+        let result;
+        let target = prompt("please enter cocktail ", "");
+        result = drinkStorage.deleteValue(target);
+        if (result == true) {
+          alert("deleted");
+        } else {
+          alert("no such cocktail");
+        }
+      }
+      function listcocktails() {
+        let arrResult = [];
+        let insertResult = [];
+        arrResult = drinkStorage.getsKeys();
+        arrResult.forEach(function (item) {
+          insertResult += `${item} \n`;
+        });
+        alert(`list of all cocktails :\n${insertResult}`);
+      }
+    </script>
+  </body>
+</html>
