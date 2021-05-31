@@ -7,14 +7,6 @@
     <title>Document</title>
   </head>
   <body>
-    <input
-      type="button"
-      name="bt"
-      value="Щелкни здесь!"
-      onClick="addElement();"
-    />
-    <div><h1>Привет!</h1></div>
-    <div id="org_div1">Текст выше сгенерирован автоматически.</div>
     <script>
       var formDef1 = [
         { label: "Название сайта:", kind: "longtext", name: "sitename" },
@@ -54,23 +46,63 @@
         { label: "Зарегистрироваться:", kind: "submit" },
       ];
 
-      function dynForm() {}
-      //   document.body.onload = addElement;
-      var my_div = (newDiv = null);
+      function dynForm(tag, array) {
+        let str = document.createElement(tag);
+        str.action = "https://fe.it-academy.by/TestForm.php";
+        let src = "";
 
-      function addElement() {
-        // Создаём новый элемент div
-        // и добавляем в него немного контента
+        for (let i = 0; i < array.length; i++) {
+          let arr = array[i];
+          src += "<label>" + array[i].label + "</label>";
 
-        var newDiv = document.createElement("div");
-        newDiv.innerHTML = "<h1>Привет!</h1>";
+          if (array[i].kind == "radio") {
+            let arr = array[i].variants;
+            for (let ind = 0; ind < arr.length; ind++) {
+              src +=
+                "<input type=" +
+                array[i].kind +
+                " name=" +
+                array[i].name +
+                " value=" +
+                arr[ind].value +
+                ">" +
+                arr[ind].text;
+            }
+          } else if (array[i].kind == "combo") {
+            let tmp = array[i].variants;
+            src += "<select name=" + array[i].name + ">";
 
-        // Добавляем только что созданный элемент в дерево DOM
+            for (let ind1 = 0; ind1 < tmp.length; ind1++) {
+              src +=
+                "<option value=" +
+                tmp[ind1].value +
+                ">" +
+                tmp[ind1].text +
+                "</option>";
+            }
+            src += "</select>";
+          } else if (array[i].kind == "check") {
+            src += "<input type=checkbox name=" + array[i].name + ">";
+          } else if (array[i].kind == "memo") {
+            src += "<textarea name=" + array[i].name + ">" + "</textarea>";
+          } else if (array[i].kind == "submit") {
+            src += "<input type=" + array[i].kind + ">";
+          } else {
+            src +=
+              "<input type=" + array[i].kind + " name=" + array[i].name + ">";
+          }
+          src += " <br> ";
 
-        my_div = document.getElementById("org_div1");
-        document.body.insertBefore(newDiv, my_div);
+          str.innerHTML = src;
+        }
+
+        src += " <br> ";
+
+        str.innerHTML = src;
+        document.body.appendChild(str);
       }
-      console.log(formDef1);
+      dynForm("form", formDef1);
+      dynForm("form", formDef2);
     </script>
   </body>
 </html>
