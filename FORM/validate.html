@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta id="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      label {
+        display: inline-block;
+        width: 190px;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <form class="formValidation" action="https://fe.it-academy.by/TestForm.php">
+      <ul class="formUl">
+        <li>
+          <label for="developers">Разработчики:</label>
+          <input type="text" id="devel" onblur="checkDev()" />
+        </li>
+        <li>
+          <label for="site">Название сайта:</label>
+          <input type="text" id="site" onblur="checkSite()" />
+        </li>
+        <li>
+          <label for="url">URL сайта:</label>
+          <input type="text" id="url" onblur="checkUrl()" />
+        </li>
+        <li>
+          <label for="date">Дата запуска сайта:</label>
+          <input type="text" id="date" />
+        </li>
+        <li>
+          <label for="count">Посетителей в сутки:</label>
+          <input type="text" id="count" onblur="countMembers()" />
+        </li>
+        <li>
+          <label for="email">E-mail для связи:</label>
+          <input type="email" id="email" onblur="checkMail()" />
+        </li>
+        <li>
+          <label for="rubric">Рубрика каталога:</label>
+          <select class="rubric">
+            <option value="1">здоровье</option>
+            <option value="2">домашний уют</option>
+            <option value="3">бытовая техника</option>
+          </select>
+        </li>
+        <li>
+          <label for="public">Размещение:</label>
+          <input type="radio" class="public" value="1" />
+          бесплатное
+          <input type="radio" class="public" value="2" />
+          платное
+          <input type="radio" class="public" value="3" />
+          VIP
+        </li>
+        <li>
+          <label for="comments">Разрешить отзывы:</label>
+          <input type="checkbox" class="comments" />
+        </li>
+        <li>
+          <label for="article">Описание сайта:</label>
+          <textarea
+            class="article field"
+            style="width: 608px; height: 50px"
+          ></textarea>
+        </li>
+
+        <li>
+          <input type="submit" value="Опубликовать" />
+        </li>
+      </ul>
+    </form>
+    <script>
+      let form = document.querySelector(".formValidation");
+      let ul = document.querySelector(".formUl");
+      let fields = form.querySelectorAll(".field");
+      let dev1 = document.getElementsByClassName("developers");
+      console.log(dev1);
+      let dev2 = document.getElementById("devel");
+      console.log(dev2);
+
+      let dev = form.querySelectorAll(".developers");
+      //console.log(dev);
+      let site = form.querySelectorAll(".site");
+      let url = form.querySelectorAll(".url");
+      let date = form.querySelectorAll(".date");
+      let txt = form.querySelectorAll(".text");
+      let cnt = form.querySelectorAll(".count");
+      let mail = form.querySelectorAll(".email");
+      let rbrc = form.querySelectorAll(".rubric");
+      let pub = form.querySelectorAll(".public");
+      let com = form.querySelectorAll(".comments");
+      let art = form.querySelectorAll(".article");
+
+      console.log(form);
+      console.log(ul);
+
+      console.log(fields);
+
+      function removeError(ind) {
+        let errors = form.querySelectorAll(ind);
+
+        for (let i = 0; i < errors.length; i++) {
+          errors[i].remove();
+        }
+      }
+      function generateError(text, err) {
+        let error = document.createElement("span");
+        error.className = err;
+        error.style.color = "red";
+        error.innerHTML = text;
+        return error;
+      }
+      let checkFieldsPresence = function () {
+        for (let i = 0; i < fields.length; i++) {
+          if (fields[i].value.length == 0) {
+            console.log("field is blank", fields[i]);
+            let error = generateError("Cant be blank");
+            fields[i].parentNode.insertBefore(error, fields[i].nextSibling);
+
+            // form[i].parentNode.insertBefore(error, fields[i].nextSibling);
+            console.log(fields[i]);
+          }
+        }
+        //developers field
+        if (dev1.value.length > 10 || dev1.value.length == 0) {
+          let error = generateError("Size cant be greater 10 symbols");
+          dev1.parentNode.insertBefore(error, dev1.nextSibling);
+        }
+      };
+      function checkDev() {
+        removeError(".devel");
+        let devel = document.getElementById("devel");
+        let letters = /^([A-Za-zА-Яа-я]|)+$/;
+        // letters = /[^a-zA-Z]+/;
+
+        if (devel.value.length == 0) {
+          let error = generateError("Cant be blank ", "devel");
+          devel.parentNode.insertBefore(error, devel.nextSibling);
+        } else if (devel.value.length > 10) {
+          let error = generateError(
+            "Wrong length, mustnot be grater 10",
+            "devel"
+          );
+          devel.parentNode.insertBefore(error, devel.nextSibling);
+        }
+        // if (!devel.value.test(letters)) {
+        if (!letters.test(devel.value)) {
+          let error = generateError("Field must be alphabetic only ", "devel");
+          devel.parentNode.insertBefore(error, devel.nextSibling);
+        }
+      }
+      function checkSite() {
+        removeError(".site");
+        let site = document.getElementById("site");
+        let letters = /^([A-Za-zА-Яа-я]|)+$/;
+        // letters = /[^a-zA-Z]+/;
+
+        if (site.value.length > 10 || site.value.length == 0) {
+          let error = generateError(
+            "Cant be blank / Wrong length, mustnot be grater 10",
+            "site"
+          );
+          site.parentNode.insertBefore(error, site.nextSibling);
+        }
+        // if (!devel.value.test(letters)) {
+        if (!letters.test(site.value)) {
+          let error = generateError("Field must be alphabetic only ", "site");
+          site.parentNode.insertBefore(error, site.nextSibling);
+        }
+      }
+
+      function checkUrl() {
+        removeError(".url");
+        let url = document.getElementById("url");
+        let urlLetters =
+          /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
+        if (url.value.length > 100 || url.value.length == 0) {
+          let error = generateError(
+            "Cant be blank / Wrong length, mustnot be grater 100",
+            "url"
+          );
+          url.parentNode.insertBefore(error, url.nextSibling);
+        }
+        if (!urlLetters.test(url.value)) {
+          let error = generateError("Incorrect format for URL ", "url");
+          url.parentNode.insertBefore(error, url.nextSibling);
+        }
+      }
+      function checkDate() {
+        removeError(".date");
+        let date = document.getElementById("date");
+      }
+      function countMembers() {
+        removeError(".count");
+        let count = document.getElementById("count");
+        console.log(Number(count.value));
+        if (count.value.length > 10 || count.value.length == 0) {
+          let error = generateError(
+            "Cant be blank / Wrong length, mustnot be grater 10",
+            "count"
+          );
+          count.parentNode.insertBefore(error, count.nextSibling);
+        }
+        if (isNaN(Number(count.value))) {
+          let error = generateError("Enter a number of members ", "count");
+          count.parentNode.insertBefore(error, count.nextSibling);
+        }
+      }
+      function checkMail() {
+        removeError(".email");
+        let email = document.getElementById("email");
+        let emailLetters =
+          /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        if (email.value.length > 10 || email.value.length == 0) {
+          let error = generateError(
+            "Cant be blank / Wrong length, mustnot be grater 10",
+            "email"
+          );
+          email.parentNode.insertBefore(error, email.nextSibling);
+        }
+        if (!emailLetters.test(email.value)) {
+          let error = generateError("Incorrect format for EMAIL ", "email");
+          email.parentNode.insertBefore(error, email.nextSibling);
+        }
+      }
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        removeError();
+        checkDev();
+        //checkFieldsPresence();
+      });
+    </script>
+  </body>
+</html>
