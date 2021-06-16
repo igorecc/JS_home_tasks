@@ -19,7 +19,7 @@
     </style>
   </head>
   <body>
-    <form class="formValidation" action="https://fe.it-academy.by/TestForm.php">
+    <form id="formValidation" action="https://fe.it-academy.by/TestForm.php">
       <ul class="formUl">
         <li>
           <label for="developers">Разработчики:</label>
@@ -35,7 +35,12 @@
         </li>
         <li>
           <label for="date">Дата запуска сайта:</label>
-          <input type="text" id="date" />
+          <input
+            type="text"
+            id="date"
+            placeholder="DD/MM/YYYY"
+            onblur="checkDate()"
+          />
         </li>
         <li>
           <label for="count">Посетителей в сутки:</label>
@@ -81,31 +86,32 @@
       </ul>
     </form>
     <script>
-      let form = document.querySelector(".formValidation");
-      let ul = document.querySelector(".formUl");
-      let fields = form.querySelectorAll(".field");
-      let dev1 = document.getElementsByClassName("developers");
-      console.log(dev1);
-      let dev2 = document.getElementById("devel");
-      console.log(dev2);
-
-      let dev = form.querySelectorAll(".developers");
-      //console.log(dev);
-      let site = form.querySelectorAll(".site");
-      let url = form.querySelectorAll(".url");
-      let date = form.querySelectorAll(".date");
-      let txt = form.querySelectorAll(".text");
-      let cnt = form.querySelectorAll(".count");
-      let mail = form.querySelectorAll(".email");
-      let rbrc = form.querySelectorAll(".rubric");
-      let pub = form.querySelectorAll(".public");
-      let com = form.querySelectorAll(".comments");
-      let art = form.querySelectorAll(".article");
-
+      let form = document.forms.formValidation;
       console.log(form);
-      console.log(ul);
+      // let ul = document.querySelector(".formUl");
+      // let fields = form.querySelectorAll(".field");
+      // let dev1 = document.getElementsByClassName("developers");
+      // console.log(dev1);
+      // let dev2 = document.getElementById("devel");
+      // console.log(dev2);
 
-      console.log(fields);
+      // let dev = form.querySelectorAll(".developers");
+      // //console.log(dev);
+      // let site = form.querySelectorAll(".site");
+      // let url = form.querySelectorAll(".url");
+      // let date = form.querySelectorAll(".date");
+      // let txt = form.querySelectorAll(".text");
+      // let cnt = form.querySelectorAll(".count");
+      // let mail = form.querySelectorAll(".email");
+      // let rbrc = form.querySelectorAll(".rubric");
+      // let pub = form.querySelectorAll(".public");
+      // let com = form.querySelectorAll(".comments");
+      // let art = form.querySelectorAll(".article");
+
+      // console.log(form);
+      // console.log(ul);
+
+      // console.log(fields);
 
       function removeError(ind) {
         let errors = form.querySelectorAll(ind);
@@ -121,23 +127,23 @@
         error.innerHTML = text;
         return error;
       }
-      let checkFieldsPresence = function () {
-        for (let i = 0; i < fields.length; i++) {
-          if (fields[i].value.length == 0) {
-            console.log("field is blank", fields[i]);
-            let error = generateError("Cant be blank");
-            fields[i].parentNode.insertBefore(error, fields[i].nextSibling);
+      // let checkFieldsPresence = function () {
+      //   for (let i = 0; i < fields.length; i++) {
+      //     if (fields[i].value.length == 0) {
+      //       console.log("field is blank", fields[i]);
+      //       let error = generateError("Cant be blank");
+      //       fields[i].parentNode.insertBefore(error, fields[i].nextSibling);
 
-            // form[i].parentNode.insertBefore(error, fields[i].nextSibling);
-            console.log(fields[i]);
-          }
-        }
-        //developers field
-        if (dev1.value.length > 10 || dev1.value.length == 0) {
-          let error = generateError("Size cant be greater 10 symbols");
-          dev1.parentNode.insertBefore(error, dev1.nextSibling);
-        }
-      };
+      //       // form[i].parentNode.insertBefore(error, fields[i].nextSibling);
+      //       console.log(fields[i]);
+      //     }
+      //   }
+      //   //developers field
+      //   if (dev1.value.length > 10 || dev1.value.length == 0) {
+      //     let error = generateError("Size cant be greater 10 symbols");
+      //     dev1.parentNode.insertBefore(error, dev1.nextSibling);
+      //   }
+      // };
       function checkDev() {
         removeError(".devel");
         let devel = document.getElementById("devel");
@@ -187,7 +193,7 @@
         removeError(".url");
         let url = document.getElementById("url");
         let urlLetters =
-          /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
+          /^$|(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
         if (url.value.length == 0) {
           let error = generateError("Cant be blank ", "url");
           url.parentNode.insertBefore(error, url.nextSibling);
@@ -206,6 +212,15 @@
       function checkDate() {
         removeError(".date");
         let date = document.getElementById("date");
+        let dateLetters = /^$|^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+        if (date.value.length == 0) {
+          let error = generateError("Cant be blank ", "date");
+          date.parentNode.insertBefore(error, date.nextSibling);
+        }
+        if (!dateLetters.test(date.value)) {
+          let error = generateError("Incorrect format for DATE field ", "date");
+          date.parentNode.insertBefore(error, date.nextSibling);
+        }
       }
       function countMembers() {
         removeError(".count");
@@ -230,13 +245,13 @@
         removeError(".email");
         let email = document.getElementById("email");
         let emailLetters =
-          /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+          /^$|^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
         if (email.value.length == 0) {
           let error = generateError("Cant be blank ", "email");
           email.parentNode.insertBefore(error, email.nextSibling);
-        } else if (email.value.length > 10) {
+        } else if (email.value.length > 20) {
           let error = generateError(
-            "Wrong length, mustnot be grater 10",
+            "Wrong length, mustnot be grater 20",
             "email"
           );
           email.parentNode.insertBefore(error, email.nextSibling);
@@ -268,7 +283,15 @@
           pub3.parentNode.insertBefore(error, pub3.lastchild);
         }
       }
-      function checkComments() {}
+      function checkComments() {
+        removeError(".comment");
+        let comment = document.getElementById("comments");
+        let y = 0;
+        if (!comment.checked) {
+          let error = generateError("Please, select ", "comment");
+          comment.parentNode.insertBefore(error, comment.lastchild);
+        }
+      }
       function checkArticle() {
         removeError(".article");
         let article = document.getElementById("article");
@@ -288,8 +311,15 @@
 
         removeError();
         checkDev();
-        //checkFieldsPresence();
+        checkSite();
+        checkUrl();
+        checkDate();
+        countMembers();
+        checkMail();
+        checkRubric();
         checkRadio();
+        checkComments();
+        checkArticle();
       });
     </script>
   </body>
