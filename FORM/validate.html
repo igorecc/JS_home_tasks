@@ -55,22 +55,23 @@
         </li>
         <li>
           <label for="public">Размещение:</label>
-          <input type="radio" class="public" value="1" />
+          <input type="radio" id="public1" value="1" />
           бесплатное
-          <input type="radio" class="public" value="2" />
+          <input type="radio" id="public2" value="2" />
           платное
-          <input type="radio" class="public" value="3" />
+          <input type="radio" id="public3" value="3" />
           VIP
         </li>
         <li>
           <label for="comments">Разрешить отзывы:</label>
-          <input type="checkbox" class="comments" />
+          <input type="checkbox" id="comments" />
         </li>
         <li>
           <label for="article">Описание сайта:</label>
           <textarea
-            class="article field"
+            id="article"
             style="width: 608px; height: 50px"
+            onblur="checkArticle()"
           ></textarea>
         </li>
 
@@ -165,9 +166,12 @@
         let letters = /^([A-Za-zА-Яа-я]|)+$/;
         // letters = /[^a-zA-Z]+/;
 
-        if (site.value.length > 10 || site.value.length == 0) {
+        if (site.value.length == 0) {
+          let error = generateError("Cant be blank ", "site");
+          site.parentNode.insertBefore(error, site.nextSibling);
+        } else if (site.value.length > 10) {
           let error = generateError(
-            "Cant be blank / Wrong length, mustnot be grater 10",
+            "Wrong length, mustnot be grater 10",
             "site"
           );
           site.parentNode.insertBefore(error, site.nextSibling);
@@ -184,9 +188,12 @@
         let url = document.getElementById("url");
         let urlLetters =
           /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
-        if (url.value.length > 100 || url.value.length == 0) {
+        if (url.value.length == 0) {
+          let error = generateError("Cant be blank ", "url");
+          url.parentNode.insertBefore(error, url.nextSibling);
+        } else if (url.value.length > 100) {
           let error = generateError(
-            "Cant be blank / Wrong length, mustnot be grater 100",
+            "Wrong length, mustnot be grater 100",
             "url"
           );
           url.parentNode.insertBefore(error, url.nextSibling);
@@ -204,9 +211,12 @@
         removeError(".count");
         let count = document.getElementById("count");
         console.log(Number(count.value));
-        if (count.value.length > 10 || count.value.length == 0) {
+        if (count.value.length == 0) {
+          let error = generateError("Cant be blank ", "count");
+          count.parentNode.insertBefore(error, count.nextSibling);
+        } else if (count.value.length > 10) {
           let error = generateError(
-            "Cant be blank / Wrong length, mustnot be grater 10",
+            "Wrong length, mustnot be grater 10",
             "count"
           );
           count.parentNode.insertBefore(error, count.nextSibling);
@@ -221,9 +231,12 @@
         let email = document.getElementById("email");
         let emailLetters =
           /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-        if (email.value.length > 10 || email.value.length == 0) {
+        if (email.value.length == 0) {
+          let error = generateError("Cant be blank ", "email");
+          email.parentNode.insertBefore(error, email.nextSibling);
+        } else if (email.value.length > 10) {
           let error = generateError(
-            "Cant be blank / Wrong length, mustnot be grater 10",
+            "Wrong length, mustnot be grater 10",
             "email"
           );
           email.parentNode.insertBefore(error, email.nextSibling);
@@ -233,12 +246,50 @@
           email.parentNode.insertBefore(error, email.nextSibling);
         }
       }
+      function checkRubric() {}
+      function checkRadio() {
+        removeError(".pub3");
+
+        let pub1 = document.getElementById("public1");
+        let pub2 = document.getElementById("public2");
+        let pub3 = document.getElementById("public3");
+        let x = 0;
+        if (pub1.checked) {
+          x++;
+        }
+        if (pub2.checked) {
+          x++;
+        }
+        if (pub3.checked) {
+          x++;
+        }
+        if (x == 0) {
+          let error = generateError("Please, select any value", "pub3");
+          pub3.parentNode.insertBefore(error, pub3.lastchild);
+        }
+      }
+      function checkComments() {}
+      function checkArticle() {
+        removeError(".article");
+        let article = document.getElementById("article");
+        if (article.value.length == 0) {
+          let error = generateError("Cant be blank ", "article");
+          article.parentNode.insertBefore(error, article.nextSibling);
+        } else if (article.value.length > 500) {
+          let error = generateError(
+            "Wrong length, mustnot be grater 500",
+            "email"
+          );
+          article.parentNode.insertBefore(error, article.nextSibling);
+        }
+      }
       form.addEventListener("submit", function (event) {
         event.preventDefault();
 
         removeError();
         checkDev();
         //checkFieldsPresence();
+        checkRadio();
       });
     </script>
   </body>
