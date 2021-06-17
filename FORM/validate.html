@@ -19,7 +19,11 @@
     </style>
   </head>
   <body>
-    <form id="formValidation" action="https://fe.it-academy.by/TestForm.php">
+    <form
+      id="formValidation"
+      onsubmit="return validateForm();"
+      action="https://fe.it-academy.by/TestForm.php"
+    >
       <ul class="formUl">
         <li>
           <label for="developers">Разработчики:</label>
@@ -148,45 +152,61 @@
         removeError(".devel");
         let devel = document.getElementById("devel");
         let letters = /^([A-Za-zА-Яа-я]|)+$/;
-        // letters = /[^a-zA-Z]+/;
+        // проверка на пустое поле
+        // длина не больше 10 символов
+        //допускается вводить только руские и англ буквы
 
         if (devel.value.length == 0) {
           let error = generateError("Cant be blank ", "devel");
           devel.parentNode.insertBefore(error, devel.nextSibling);
+          devel.focus();
+          return false;
         } else if (devel.value.length > 10) {
           let error = generateError(
             "Wrong length, mustnot be grater 10",
             "devel"
           );
           devel.parentNode.insertBefore(error, devel.nextSibling);
+          devel.focus();
+
+          return false;
         }
-        // if (!devel.value.test(letters)) {
         if (!letters.test(devel.value)) {
           let error = generateError("Field must be alphabetic only ", "devel");
           devel.parentNode.insertBefore(error, devel.nextSibling);
+          devel.focus();
+          return false;
         }
+        return true;
       }
       function checkSite() {
         removeError(".site");
         let site = document.getElementById("site");
         let letters = /^([A-Za-zА-Яа-я]|)+$/;
-        // letters = /[^a-zA-Z]+/;
-
+        // проверка на пустое поле
+        // длина не больше 10 символов
+        //допускается вводить только руские и англ буквы
         if (site.value.length == 0) {
           let error = generateError("Cant be blank ", "site");
           site.parentNode.insertBefore(error, site.nextSibling);
+          site.focus();
+          return false;
         } else if (site.value.length > 10) {
           let error = generateError(
             "Wrong length, mustnot be grater 10",
             "site"
           );
           site.parentNode.insertBefore(error, site.nextSibling);
+          site.focus();
+          return false;
         }
-        // if (!devel.value.test(letters)) {
         if (!letters.test(site.value)) {
           let error = generateError("Field must be alphabetic only ", "site");
           site.parentNode.insertBefore(error, site.nextSibling);
+          site.focus();
+          return false;
         }
+        return true;
       }
 
       function checkUrl() {
@@ -306,21 +326,29 @@
           article.parentNode.insertBefore(error, article.nextSibling);
         }
       }
-      form.addEventListener("submit", function (event) {
-        event.preventDefault();
+      function validateForm() {
+        // event.preventDefault();
 
         removeError();
-        checkDev();
-        checkSite();
-        checkUrl();
-        checkDate();
-        countMembers();
-        checkMail();
-        checkRubric();
-        checkRadio();
-        checkComments();
-        checkArticle();
-      });
+        if (checkDev()) {
+          if (checkSite()) {
+          }
+        }
+        return false;
+        // checkDev();
+        // checkSite();
+        // checkUrl();
+        // checkDate();
+        // countMembers();
+        // checkMail();
+        // checkRubric();
+        // checkRadio();
+        // checkComments();
+        // checkArticle();
+      }
+      // form.addEventListener("submit", function (event) {
+
+      // });
     </script>
   </body>
 </html>
