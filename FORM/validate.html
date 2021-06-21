@@ -93,7 +93,6 @@
       let form = document.forms.formValidation;
       console.log(form);
 
-
       function removeError(ind) {
         let errors = form.querySelectorAll(ind);
 
@@ -171,6 +170,10 @@
       }
 
       function checkUrl() {
+        // проверка на пустое поле
+        // длина не больше 256 символов
+        //допускается вводить англ буквы,цифры, спец. символы
+        //
         removeError(".url");
         let url = document.getElementById("url");
         let urlLetters =
@@ -179,7 +182,7 @@
           let error = generateError("Cant be blank ", "url");
           url.parentNode.insertBefore(error, url.nextSibling);
           return false;
-        } else if (url.value.length > 100) {
+        } else if (url.value.length > 256) {
           let error = generateError(
             "Wrong length, mustnot be grater 100",
             "url"
@@ -195,6 +198,8 @@
         return true;
       }
       function checkDate() {
+        // проверка на пустое поле
+        // введен спецформат даты DD/MM/YYYY
         removeError(".date");
         let date = document.getElementById("date");
         let dateLetters = /^$|^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
@@ -211,6 +216,9 @@
         return true;
       }
       function countMembers() {
+        // проверка на пустое поле
+        // длина не больше 10 символов
+        //допускается вводить только цифры
         removeError(".count");
         let count = document.getElementById("count");
         console.log(Number(count.value));
@@ -234,6 +242,10 @@
         return true;
       }
       function checkMail() {
+        // проверка на пустое поле
+        // длина не больше 32 символов
+        //допускается вводить  англ буквы и цифры
+        //
         removeError(".email");
         let email = document.getElementById("email");
         let emailLetters =
@@ -242,9 +254,9 @@
           let error = generateError("Cant be blank ", "email");
           email.parentNode.insertBefore(error, email.nextSibling);
           return false;
-        } else if (email.value.length > 20) {
+        } else if (email.value.length > 32) {
           let error = generateError(
-            "Wrong length, mustnot be grater 20",
+            "Wrong length, mustnot be grater 32",
             "email"
           );
           email.parentNode.insertBefore(error, email.nextSibling);
@@ -259,6 +271,8 @@
       }
       function checkRubric() {}
       function checkRadio() {
+        // разрешено выбирать только одну опцию
+
         removeError(".pub3");
 
         let pub1 = document.getElementById("public1");
@@ -279,6 +293,15 @@
           pub3.parentNode.insertBefore(error, pub3.lastchild);
           return false;
         }
+        if (x > 1) {
+          pub1.checked = false;
+          pub2.checked = false;
+          pub3.checked = false;
+
+          let error = generateError("Please, select only one option", "pub3");
+          pub3.parentNode.insertBefore(error, pub3.lastchild);
+          return false;
+        }
         return true;
       }
       function checkComments() {
@@ -293,6 +316,9 @@
         return true;
       }
       function checkArticle() {
+        // проверка на пустое поле
+        // длина не больше 500 символов
+        //допускается вводить любые символы
         removeError(".article");
         let article = document.getElementById("article");
         if (article.value.length == 0) {
@@ -348,6 +374,7 @@
         } else {
           return false;
         }
+      }
     </script>
   </body>
 </html>
