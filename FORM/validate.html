@@ -92,30 +92,7 @@
     <script>
       let form = document.forms.formValidation;
       console.log(form);
-      // let ul = document.querySelector(".formUl");
-      // let fields = form.querySelectorAll(".field");
-      // let dev1 = document.getElementsByClassName("developers");
-      // console.log(dev1);
-      // let dev2 = document.getElementById("devel");
-      // console.log(dev2);
 
-      // let dev = form.querySelectorAll(".developers");
-      // //console.log(dev);
-      // let site = form.querySelectorAll(".site");
-      // let url = form.querySelectorAll(".url");
-      // let date = form.querySelectorAll(".date");
-      // let txt = form.querySelectorAll(".text");
-      // let cnt = form.querySelectorAll(".count");
-      // let mail = form.querySelectorAll(".email");
-      // let rbrc = form.querySelectorAll(".rubric");
-      // let pub = form.querySelectorAll(".public");
-      // let com = form.querySelectorAll(".comments");
-      // let art = form.querySelectorAll(".article");
-
-      // console.log(form);
-      // console.log(ul);
-
-      // console.log(fields);
 
       function removeError(ind) {
         let errors = form.querySelectorAll(ind);
@@ -131,23 +108,7 @@
         error.innerHTML = text;
         return error;
       }
-      // let checkFieldsPresence = function () {
-      //   for (let i = 0; i < fields.length; i++) {
-      //     if (fields[i].value.length == 0) {
-      //       console.log("field is blank", fields[i]);
-      //       let error = generateError("Cant be blank");
-      //       fields[i].parentNode.insertBefore(error, fields[i].nextSibling);
 
-      //       // form[i].parentNode.insertBefore(error, fields[i].nextSibling);
-      //       console.log(fields[i]);
-      //     }
-      //   }
-      //   //developers field
-      //   if (dev1.value.length > 10 || dev1.value.length == 0) {
-      //     let error = generateError("Size cant be greater 10 symbols");
-      //     dev1.parentNode.insertBefore(error, dev1.nextSibling);
-      //   }
-      // };
       function checkDev() {
         removeError(".devel");
         let devel = document.getElementById("devel");
@@ -159,7 +120,7 @@
         if (devel.value.length == 0) {
           let error = generateError("Cant be blank ", "devel");
           devel.parentNode.insertBefore(error, devel.nextSibling);
-          devel.focus();
+          //   devel.focus();
           return false;
         } else if (devel.value.length > 10) {
           let error = generateError(
@@ -167,14 +128,14 @@
             "devel"
           );
           devel.parentNode.insertBefore(error, devel.nextSibling);
-          devel.focus();
+          //    devel.focus();
 
           return false;
         }
         if (!letters.test(devel.value)) {
           let error = generateError("Field must be alphabetic only ", "devel");
           devel.parentNode.insertBefore(error, devel.nextSibling);
-          devel.focus();
+          //    devel.focus();
           return false;
         }
         return true;
@@ -189,7 +150,7 @@
         if (site.value.length == 0) {
           let error = generateError("Cant be blank ", "site");
           site.parentNode.insertBefore(error, site.nextSibling);
-          site.focus();
+          //     site.focus();
           return false;
         } else if (site.value.length > 10) {
           let error = generateError(
@@ -197,13 +158,13 @@
             "site"
           );
           site.parentNode.insertBefore(error, site.nextSibling);
-          site.focus();
+          //     site.focus();
           return false;
         }
         if (!letters.test(site.value)) {
           let error = generateError("Field must be alphabetic only ", "site");
           site.parentNode.insertBefore(error, site.nextSibling);
-          site.focus();
+          //    site.focus();
           return false;
         }
         return true;
@@ -217,17 +178,21 @@
         if (url.value.length == 0) {
           let error = generateError("Cant be blank ", "url");
           url.parentNode.insertBefore(error, url.nextSibling);
+          return false;
         } else if (url.value.length > 100) {
           let error = generateError(
             "Wrong length, mustnot be grater 100",
             "url"
           );
           url.parentNode.insertBefore(error, url.nextSibling);
+          return false;
         }
         if (!urlLetters.test(url.value)) {
           let error = generateError("Incorrect format for URL ", "url");
           url.parentNode.insertBefore(error, url.nextSibling);
+          return false;
         }
+        return true;
       }
       function checkDate() {
         removeError(".date");
@@ -236,11 +201,14 @@
         if (date.value.length == 0) {
           let error = generateError("Cant be blank ", "date");
           date.parentNode.insertBefore(error, date.nextSibling);
+          return false;
         }
         if (!dateLetters.test(date.value)) {
           let error = generateError("Incorrect format for DATE field ", "date");
           date.parentNode.insertBefore(error, date.nextSibling);
+          return false;
         }
+        return true;
       }
       function countMembers() {
         removeError(".count");
@@ -249,17 +217,21 @@
         if (count.value.length == 0) {
           let error = generateError("Cant be blank ", "count");
           count.parentNode.insertBefore(error, count.nextSibling);
+          return false;
         } else if (count.value.length > 10) {
           let error = generateError(
             "Wrong length, mustnot be grater 10",
             "count"
           );
           count.parentNode.insertBefore(error, count.nextSibling);
+          return false;
         }
         if (isNaN(Number(count.value))) {
           let error = generateError("Enter a number of members ", "count");
           count.parentNode.insertBefore(error, count.nextSibling);
+          return false;
         }
+        return true;
       }
       function checkMail() {
         removeError(".email");
@@ -269,17 +241,21 @@
         if (email.value.length == 0) {
           let error = generateError("Cant be blank ", "email");
           email.parentNode.insertBefore(error, email.nextSibling);
+          return false;
         } else if (email.value.length > 20) {
           let error = generateError(
             "Wrong length, mustnot be grater 20",
             "email"
           );
           email.parentNode.insertBefore(error, email.nextSibling);
+          return false;
         }
         if (!emailLetters.test(email.value)) {
           let error = generateError("Incorrect format for EMAIL ", "email");
           email.parentNode.insertBefore(error, email.nextSibling);
+          return false;
         }
+        return true;
       }
       function checkRubric() {}
       function checkRadio() {
@@ -301,7 +277,9 @@
         if (x == 0) {
           let error = generateError("Please, select any value", "pub3");
           pub3.parentNode.insertBefore(error, pub3.lastchild);
+          return false;
         }
+        return true;
       }
       function checkComments() {
         removeError(".comment");
@@ -310,7 +288,9 @@
         if (!comment.checked) {
           let error = generateError("Please, select ", "comment");
           comment.parentNode.insertBefore(error, comment.lastchild);
+          return false;
         }
+        return true;
       }
       function checkArticle() {
         removeError(".article");
@@ -318,37 +298,56 @@
         if (article.value.length == 0) {
           let error = generateError("Cant be blank ", "article");
           article.parentNode.insertBefore(error, article.nextSibling);
+          return false;
         } else if (article.value.length > 500) {
           let error = generateError(
             "Wrong length, mustnot be grater 500",
             "email"
           );
           article.parentNode.insertBefore(error, article.nextSibling);
+          return false;
         }
+        return true;
       }
       function validateForm() {
         // event.preventDefault();
-
+        let submitOk = true;
         removeError();
-        if (checkDev()) {
-          if (checkSite()) {
-          }
+        if (!checkDev()) {
+          submitOk = false;
         }
-        return false;
-        // checkDev();
-        // checkSite();
-        // checkUrl();
-        // checkDate();
-        // countMembers();
-        // checkMail();
-        // checkRubric();
-        // checkRadio();
-        // checkComments();
-        // checkArticle();
-      }
-      // form.addEventListener("submit", function (event) {
-
-      // });
+        if (!checkSite()) {
+          submitOk = false;
+        }
+        if (!checkUrl()) {
+          submitOk = false;
+        }
+        if (!checkDate()) {
+          submitOk = false;
+        }
+        if (!countMembers()) {
+          submitOk = false;
+        }
+        if (!checkMail()) {
+          submitOk = false;
+        }
+        // if (!checkRubric()) {
+        //   submitOk = false;
+        // }
+        if (!checkRadio()) {
+          submitOk = false;
+        }
+        if (!checkComments()) {
+          submitOk = false;
+        }
+        if (!checkArticle()) {
+          submitOk = false;
+        }
+        if (submitOk) {
+          return true;
+        } else {
+          return false;
+        }
     </script>
   </body>
 </html>
