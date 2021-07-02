@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="button" value="create" onclick="createClock()" name="" id="" />
+
+    <script>
+      function createClock() {
+        let mainDiv = document.createElement("DIV");
+        let clockCenterX; //центр циферблата ось X
+        let clockCenterY; //центр циферблата ось Y
+        let hourX; //центр минутного блока ось X
+        let hourY; //центр минутного блока ось Y
+        let angle = 0; //начальный угол в гр
+        let angle1; //знаяение в рад
+
+        mainDiv.style.position = "absolute";
+        mainDiv.style.width = "500px";
+        mainDiv.style.height = "500px";
+        mainDiv.style.left = "100px";
+        mainDiv.style.top = "100px";
+        mainDiv.style.background = "red";
+        mainDiv.style.borderRadius = "50%";
+        document.body.appendChild(mainDiv);
+        clockCenterX = mainDiv.offsetLeft + mainDiv.offsetWidth / 2;
+        clockCenterY = mainDiv.offsetTop + mainDiv.offsetHeight / 2;
+
+        // создание минутных блоков
+        for (let i = 1; i <= 12; i++) {
+          angle += 30;
+          angle1 = (angle / 180) * Math.PI;
+
+          let hourCircle = document.createElement("DIV");
+          let hourP = document.createElement("P");
+          hourCircle;
+          hourCircle.style.position = "absolute";
+          hourCircle.style.width = "50px";
+          hourCircle.style.height = "50px";
+          hourCircle.style.background = "yellow";
+          hourCircle.style.borderRadius = "50%";
+          document.body.appendChild(hourCircle);
+
+          hourX = clockCenterX + 200 * Math.sin(angle1);
+          hourY = clockCenterY - 200 * Math.cos(angle1);
+
+          hourCircle.style.left =
+            Math.round(hourX - hourCircle.offsetWidth / 2) + "px";
+          hourCircle.style.top =
+            Math.round(hourY - hourCircle.offsetHeight / 2) + "px";
+
+          hourP.innerHTML = i;
+          hourP.style.textAlign = "center";
+          hourCircle.appendChild(hourP);
+        }
+        //
+        //инициализация цифрового циферблата
+        // HH:MM:SS
+        //
+        let digitalSpan = document.createElement("SPAN");
+        digitalSpan.style.position = "absolute";
+        digitalSpan.style.fontSize = "45px";
+        digitalSpan.style.left = clockCenterX - 80 + "px";
+        digitalSpan.style.top = clockCenterY - 140 + "px";
+        document.body.appendChild(digitalSpan);
+        //
+        //часовая стрeлка
+        //
+        let hrLine = document.createElement("DIV");
+        hrLine.style.position = "absolute";
+        hrLine.style.width = "8px";
+        hrLine.style.height = "120px";
+        hrLine.style.borderRadius = "10px";
+        hrLine.style.background = "black";
+        hrLine.style.left = clockCenterX + "px";
+        hrLine.style.top = clockCenterY + "px";
+        hrLine.style.transformOrigin = "center top";
+        hrLine.style.transform = "rotate(180deg)";
+        document.body.appendChild(hrLine);
+        //
+        //минутная стрелка
+        //
+        let minLine = document.createElement("DIV");
+        minLine.style.position = "absolute";
+        minLine.style.width = "5px";
+        minLine.style.height = "190px";
+        minLine.style.borderRadius = "10px";
+        minLine.style.background = "black";
+        minLine.style.left = clockCenterX + "px";
+        minLine.style.top = clockCenterY + "px";
+        minLine.style.transformOrigin = "center top";
+        minLine.style.transform = "rotate(180deg)";
+        document.body.appendChild(minLine);
+        //
+        //секундная стрелка
+        //
+        let secLine = document.createElement("DIV");
+        secLine.style.position = "absolute";
+        secLine.style.width = "2px";
+        secLine.style.height = "230px";
+        secLine.style.borderRadius = "10px";
+        secLine.style.background = "black";
+        secLine.style.left = clockCenterX + "px";
+        secLine.style.top = clockCenterY + "px";
+        secLine.style.transformOrigin = "center top";
+        secLine.style.transform = "rotate(180deg)";
+        document.body.appendChild(secLine);
+
+        setInterval(updateTime, 1000);
+
+        function updateTime() {
+          let currTime = new Date();
+          let currTimeStr = formatDateTime(currTime);
+          digitalSpan.innerHTML = currTimeStr;
+          //
+          //определяеи угол на который должна сместиться каждая стрелка
+          //
+          let tSec = 6 * currTime.getSeconds();
+          let tMin = 6 * currTime.getMinutes();
+          let tHr =
+            30 * (currTime.getHours() + (1 / 60) * currTime.getMinutes());
+
+          secLine.style.transform = `rotate(${tSec - 180}deg)`; //при создании блоков со стрелками поворачивал их на 180гр....                                                       тут компенсирую лишние градусы отнимая начальный поворот
+          minLine.style.transform = `rotate(${tMin - 180}deg)`;
+          hrLine.style.transform = `rotate(${tHr - 180}deg)`;
+        }
+
+        // форматирует переданную дату-время в формате чч:мм:сс
+        function formatDateTime(dt) {
+          let hours = dt.getHours();
+          let minutes = dt.getMinutes();
+          let seconds = dt.getSeconds();
+          return (
+            str0l(hours, 2) + ":" + str0l(minutes, 2) + ":" + str0l(seconds, 2)
+          );
+        }
+
+        // дополняет строку val слева нулями до длины Len
+        function str0l(val, len) {
+          let strVal = val.toString();
+          while (strVal.length < len) strVal = "0" + strVal;
+          return strVal;
+        }
+      }
+    </script>
+  </body>
+</html>
