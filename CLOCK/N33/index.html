@@ -18,6 +18,7 @@
         let hourY; //центр минутного блока ось Y
         let angle = 0; //начальный угол в гр
         let angle1; //знаяение в рад
+        let timer = 0;
 
         mainDiv.style.position = "absolute";
         mainDiv.style.width = "500px";
@@ -110,7 +111,7 @@
         secLine.style.transform = "rotate(180deg)";
         document.body.appendChild(secLine);
 
-        setInterval(updateTime, 1000);
+        timer = setInterval(updateTime, 10);
 
         function updateTime() {
           let currTime = new Date();
@@ -128,6 +129,8 @@
           secLine.style.transform = `rotate(${tSec - 180}deg)`; //при создании блоков со стрелками поворачивал их на 180гр....                                                       тут компенсирую лишние градусы отнимая начальный поворот
           minLine.style.transform = `rotate(${tMin - 180}deg)`;
           hrLine.style.transform = `rotate(${tHr - 180}deg)`;
+          clearInterval(timer);
+          timer = setInterval(updateTime, 1000);
         }
 
         // форматирует переданную дату-время в формате чч:мм:сс
