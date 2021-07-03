@@ -15,8 +15,8 @@
     <script>
       function createClock() {
         let xmlns = "http://www.w3.org/2000/svg";
-        const clockCenterX = 300;
-        const clockCenterY = 300;
+        const clockCenterX = 300; //центр циферблата ось X
+        const clockCenterY = 300; //центр циферблата ось Y
         let angle = 0; //начальный угол в гр
         let angle1; //знаяение в рад
         let hourCircleX, hourCircleY;
@@ -62,8 +62,6 @@
         // HH:MM:SS
         //
         let hourRect = document.createElementNS(xmlns, "text");
-        // hourRect.style.width = "160px";
-        // hourRect.style.height = "50px";
         hourRect.setAttribute("x", clockCenterX);
         hourRect.setAttribute("y", clockCenterY - 150);
         hourRect.setAttribute("text-anchor", "middle");
@@ -79,6 +77,8 @@
         hrLine.setAttribute("y2", clockCenterY - 140);
         hrLine.setAttribute("stroke", "black");
         hrLine.setAttribute("stroke-width", 10);
+        hrLine.setAttribute("stroke-linecap", "round");
+
         svgClock.appendChild(hrLine);
 
         //
@@ -91,6 +91,7 @@
         minLine.setAttribute("y2", clockCenterY - 200);
         minLine.setAttribute("stroke", "black");
         minLine.setAttribute("stroke-width", 4);
+        minLine.setAttribute("stroke-linecap", "round");
         svgClock.appendChild(minLine);
         //
         //секундная стрелка
@@ -102,6 +103,7 @@
         secLine.setAttribute("y2", clockCenterY - 250);
         secLine.setAttribute("stroke", "black");
         secLine.setAttribute("stroke-width", 2);
+        secLine.setAttribute("stroke-linecap", "round");
         svgClock.appendChild(secLine);
 
         updateTime();
