@@ -8,9 +8,14 @@
   </head>
   <body>
     <input type="button" value="create" onclick="createClock()" name="" id="" />
+    <div
+      id="divContainer"
+      style="position: relative; width: 1000px; height: 1000px"
+    ></div>
 
     <script>
       function createClock() {
+        let divCntr = document.getElementById("divContainer");
         let mainDiv = document.createElement("DIV");
         let clockCenterX; //центр циферблата ось X
         let clockCenterY; //центр циферблата ось Y
@@ -27,7 +32,8 @@
         mainDiv.style.top = "100px";
         mainDiv.style.background = "red";
         mainDiv.style.borderRadius = "50%";
-        document.body.appendChild(mainDiv);
+        //  document.body.appendChild(mainDiv);
+        divCntr.appendChild(mainDiv);
         clockCenterX = mainDiv.offsetLeft + mainDiv.offsetWidth / 2;
         clockCenterY = mainDiv.offsetTop + mainDiv.offsetHeight / 2;
 
@@ -44,7 +50,8 @@
           hourCircle.style.height = "50px";
           hourCircle.style.background = "yellow";
           hourCircle.style.borderRadius = "50%";
-          document.body.appendChild(hourCircle);
+          //document.body.appendChild(hourCircle);
+          divCntr.appendChild(hourCircle);
 
           hourX = clockCenterX + 200 * Math.sin(angle1);
           hourY = clockCenterY - 200 * Math.cos(angle1);
@@ -67,7 +74,9 @@
         digitalSpan.style.fontSize = "45px";
         digitalSpan.style.left = clockCenterX - 80 + "px";
         digitalSpan.style.top = clockCenterY - 140 + "px";
-        document.body.appendChild(digitalSpan);
+        // document.body.appendChild(digitalSpan);
+        divCntr.appendChild(digitalSpan);
+
         //
         //часовая стрeлка
         //
@@ -81,7 +90,9 @@
         hrLine.style.top = clockCenterY + "px";
         hrLine.style.transformOrigin = "center top";
         hrLine.style.transform = "rotate(180deg)";
-        document.body.appendChild(hrLine);
+        // document.body.appendChild(hrLine);
+        divCntr.appendChild(hrLine);
+
         //
         //минутная стрелка
         //
@@ -95,7 +106,9 @@
         minLine.style.top = clockCenterY + "px";
         minLine.style.transformOrigin = "center top";
         minLine.style.transform = "rotate(180deg)";
-        document.body.appendChild(minLine);
+        //   document.body.appendChild(minLine);
+        divCntr.appendChild(minLine);
+
         //
         //секундная стрелка
         //
@@ -109,9 +122,10 @@
         secLine.style.top = clockCenterY + "px";
         secLine.style.transformOrigin = "center top";
         secLine.style.transform = "rotate(180deg)";
-        document.body.appendChild(secLine);
-
-        timer = setInterval(updateTime, 10);
+        // document.body.appendChild(secLine);
+        divCntr.appendChild(secLine);
+        updateTime();
+        timer = setInterval(updateTime, 1000);
 
         function updateTime() {
           let currTime = new Date();
@@ -129,8 +143,8 @@
           secLine.style.transform = `rotate(${tSec - 180}deg)`; //при создании блоков со стрелками поворачивал их на 180гр....                                                       тут компенсирую лишние градусы отнимая начальный поворот
           minLine.style.transform = `rotate(${tMin - 180}deg)`;
           hrLine.style.transform = `rotate(${tHr - 180}deg)`;
-          clearInterval(timer);
-          timer = setInterval(updateTime, 1000);
+          //  clearInterval(timer);
+          //  timer = setInterval(updateTime, 1000);
         }
 
         // форматирует переданную дату-время в формате чч:мм:сс
