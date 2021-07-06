@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="canvas" width="1000" height="1000"></canvas>
+
+    <script>
+      let clockCenterX = 400; //центр циферблата Х
+      let clockCenterY = 400; //центр циферблата У
+      let clockRadius = 300;
+      let angle = 0; //начальный угол в гр
+      let angle1; //значение в рад
+      let hourCircleX, hourCircleY;
+      clock = document.getElementById("canvas");
+      ctx = clock.getContext("2d");
+      //
+      function clockLoop() {
+        let currTime = new Date();
+        let time = currTime.toLocaleTimeString(currTime);
+        let hours = currTime.getHours();
+        let minutes = currTime.getMinutes();
+        let seconds = currTime.getSeconds();
+
+        console.log("Текущее время :" + time);
+        //рисуем циферблат
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(clockCenterX, clockCenterY, 300, 0, 2 * Math.PI, false);
+        ctx.fillStyle = "yellow";
+        ctx.fill();
+        ctx.closePath();
+
+        ctx.stroke();
+
+        //рисуем часовой циферблат
+
+        for (let i = 1; i <= 12; i++) {
+          angle += 30;
+          angle1 = (angle / 180) * Math.PI;
+          hourCircleX = Math.round(clockCenterX + 250 * Math.sin(angle1));
+          hourCircleY = Math.round(clockCenterY - 250 * Math.cos(angle1));
+
+          ctx.beginPath();
+          ctx.arc(hourCircleX, hourCircleY, 30, 0, 2 * Math.PI, false);
+          ctx.fillStyle = "green";
+          ctx.fill();
+          ctx.closePath();
+
+          ctx.font = "30px Verdana";
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.strokeText(i, hourCircleX, hourCircleY, 60);
+          ctx.stroke();
+        }
+        //
+        //инициализация цифрового циферблата
+        // HH:MM:SS
+        //
+        ctx.font = "44px Arial, sans-serif";
+        ctx.fillText(time, clockCenterX, clockCenterY - 100);
+        //
+        //рисуем часовую,минутную и секундную линии через функцию drawLine(deg,len,color,w)
+        //
+        drawLine(
+          360 * (hours / 12) + (minutes / 60) * 30 - 90,
+          120,
+          "black",
+          10
+        );
+        drawLine(
+          360 * (minutes / 60) + (seconds / 60) * 6 - 90,
+          180,
+          "black",
+          10
+        );
+        drawLine(360 * (seconds / 60) - 90, 260, "red", 2);
+        ctx.restore();
+
+        function drawLine(deg, len, color, w) {
+          //входные параметры
+          //deg   - уг
+          //len   - длина линии
+          //color - цвет линии
+          //w     - толщина линии
+
+          rad = (Math.PI / 180) * deg; //координаты новой точки
+
+          targetX = clockCenterX + Math.cos(rad) * len;
+          targetY = clockCenterY + Math.sin(rad) * len;
+
+          ctx.beginPath();
+          ctx.strokeStyle = color;
+          ctx.lineWidth = w;
+          ctx.lineCap = "round";
+          ctx.moveTo(clockCenterX, clockCenterY);
+          ctx.lineTo(targetX, targetY);
+          ctx.stroke();
+        }
+      }
+
+      setInterval(clockLoop, 1000);
+    </script>
+  </body>
+</html>
