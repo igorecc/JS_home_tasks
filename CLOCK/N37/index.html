@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="button" value="create" onclick="createClock()" name="" id="" />
+    <div
+      id="divContainer"
+      style="position: relative; width: 1000px; height: 1000px"
+    ></div>
+    <script>
+      function createClock() {
+        let xmlns = "http://www.w3.org/2000/svg";
+        const clockCenterX = 300; //центр циферблата ось X
+        const clockCenterY = 300; //центр циферблата ось Y
+        let angle = 0; //начальный угол в гр
+        let angle1; //знаяение в рад
+        let hourCircleX, hourCircleY;
+        let divCntr = document.getElementById("divContainer");
+        let svgClock = document.createElementNS(xmlns, "svg");
+        let circleClock = document.createElementNS(xmlns, "circle");
+        svgClock.style.position = "absolute";
+        svgClock.style.width = "800px";
+        svgClock.style.height = "800px";
+        divCntr.appendChild(svgClock);
+        circleClock.setAttribute("fill", "yellow");
+        circleClock.setAttribute("cx", clockCenterX);
+        circleClock.setAttribute("cy", clockCenterY);
+        circleClock.setAttribute("r", 300);
+        svgClock.appendChild(circleClock);
+
+        for (let i = 1; i <= 12; i++) {
+          let hourCircle = document.createElementNS(xmlns, "circle");
+          let hourText = document.createElementNS(xmlns, "text");
+          angle += 30;
+          angle1 = (angle / 180) * Math.PI;
+          hourCircleX = Math.round(clockCenterX + 250 * Math.sin(angle1));
+          hourCircleY = Math.round(clockCenterY - 250 * Math.cos(angle1));
+
+          hourCircle.setAttribute("fill", "red");
+          hourCircle.setAttribute("cx", hourCircleX);
+          hourCircle.setAttribute("cy", hourCircleY);
+          hourCircle.setAttribute("r", 30);
+          svgClock.appendChild(hourCircle);
+
+          //часовая цифра
+
+          hourText.innerHTML = i;
+          hourText.setAttribute("x", hourCircleX);
+          hourText.setAttribute("y", hourCircleY + 10);
+          hourText.setAttribute("text-anchor", "middle");
+          hourText.setAttribute("font-size", "40px");
+
+          svgClock.appendChild(hourText);
+        }
+        //
+        //инициализация цифрового циферблата
+        // HH:MM:SS
+        //
+        let hourRect = document.createElementNS(xmlns, "text");
+        hourRect.setAttribute("x", clockCenterX);
+        hourRect.setAttribute("y", clockCenterY - 150);
+        hourRect.setAttribute("text-anchor", "middle");
+        hourRect.setAttribute("font-size", "40px");
+        svgClock.appendChild(hourRect);
+        //
+        //часовая стрeлка
+        //
+        let hrLine = document.createElementNS(xmlns, "line");
+        hrLine.setAttribute("x1", clockCenterX);
+        hrLine.setAttribute("y1", clockCenterY);
+        hrLine.setAttribute("x2", clockCenterX);
+        hrLine.setAttribute("y2", clockCenterY - 140);
+        hrLine.setAttribute("stroke", "black");
+        hrLine.setAttribute("stroke-width", 10);
+        hrLine.setAttribute("stroke-linecap", "round");
+
+        svgClock.appendChild(hrLine);
+
+        //
+        //минутная стрелка
+        //
+        let minLine = document.createElementNS(xmlns, "line");
+        minLine.setAttribute("x1", clockCenterX);
+        minLine.setAttribute("y1", clockCenterY);
+        minLine.setAttribute("x2", clockCenterX);
+        minLine.setAttribute("y2", clockCenterY - 200);
+        minLine.setAttribute("stroke", "black");
+        minLine.setAttribute("stroke-width", 4);
+        minLine.setAttribute("stroke-linecap", "round");
+        svgClock.appendChild(minLine);
+        //
+        //секундная стрелка
+        //
+        let secLine = document.createElementNS(xmlns, "line");
+        secLine.setAttribute("x1", clockCenterX);
+        secLine.setAttribute("y1", clockCenterY);
+        secLine.setAttribute("x2", clockCenterX);
+        secLine.setAttribute("y2", clockCenterY - 250);
+        secLine.setAttribute("stroke", "black");
+        secLine.setAttribute("stroke-width", 2);
+        secLine.setAttribute("stroke-linecap", "round");
+        svgClock.appendChild(secLine);
+
+        updateTime();
+        timer = setInterval(updateTime, 1000);
+
+        function updateTime() {
+          let currTime = new Date();
+          let currTimeStr = formatDateTime(currTime);
+          hourRect.innerHTML = currTimeStr;
+          console.log("Текущее время :" + currTimeStr);
+          //
+          //определяеи угол на который должна сместиться каждая стрелка
+          //
+          let tSec = 6 * currTime.getSeconds();
+          let tMin = 6 * currTime.getMinutes();
+          let tHr =
+            30 * (currTime.getHours() + (1 / 60) * currTime.getMinutes());
+          secLine.setAttribute(
+            "transform",
+            "rotate(" + tSec + " " + clockCenterX + " " + clockCenterY + " )"
+          );
+          minLine.setAttribute(
+            "transform",
+            "rotate(" + tMin + " " + clockCenterX + " " + clockCenterY + " )"
+          );
+          hrLine.setAttribute(
+            "transform",
+            "rotate(" + tHr + " " + clockCenterX + " " + clockCenterY + " )"
+          );
+        }
+
+        // форматирует переданную дату-время в формате чч:мм:сс
+        function formatDateTime(dt) {
+          let hours = dt.getHours();
+          let minutes = dt.getMinutes();
+          let seconds = dt.getSeconds();
+          return (
+            str0l(hours, 2) + ":" + str0l(minutes, 2) + ":" + str0l(seconds, 2)
+          );
+        }
+
+        // дополняет строку val слева нулями до длины Len
+        function str0l(val, len) {
+          let strVal = val.toString();
+          while (strVal.length < len) strVal = "0" + strVal;
+          return strVal;
+        }
+      }
+    </script>
+  </body>
+</html>
