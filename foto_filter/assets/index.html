@@ -14,7 +14,7 @@
   </head>
   <body>
     <header class="header">
-      <h1 class="header-title">Photo-filter</h1>
+      <h1 class="header-title">Photo-editor</h1>
     </header>
     <main class="main">
       <div class="filters">
@@ -99,6 +99,7 @@
           src="/foto_filter/assets/img/img.jpg"
           alt="image"
         />
+        <canvas class="canvas"></canvas>
       </div>
     </main>
     <footer class="footer">
@@ -162,19 +163,6 @@
           }
           return button;
         }
-
-        // Additional photo samples --
-
-        let p1 = new Image();
-        p1.src = "aurora.jpg";
-        let p2 = new Image();
-        p1.src = "macarons.jpg";
-
-        let photos = {
-          aurora: "Aurora Borealis",
-          bride: "विवाह",
-          macarons: "Colorful Macarons",
-        };
 
         let caption = document.getElementById("caption");
 

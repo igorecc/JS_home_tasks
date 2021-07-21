@@ -205,13 +205,13 @@ img {
   background-size: contain;
   transition: 0.3s;
   cursor: pointer;
-  background-image: url("assets/svg/fullscreen-open.svg");
+  background-image: url("../assets/svg/fullscreen-open.svg");
 }
 .fullscreen:hover {
   background-color: rgba(255, 255, 255, 0.5);
 }
 :-webkit-full-screen .fullscreen {
-  background-image: url("assets/svg/fullscreen-exit.svg");
+  background-image: url("../assets/svg/fullscreen-exit.svg");
 }
 .footer {
   border-top: 1px solid;
@@ -261,28 +261,28 @@ nav {
   background-image: url("img/macarons.jpg");
 }
 #fluorescent {
-  background-image: url("img/fluorescent.jpg.bmp");
+  background-image: url("img/fluorescent.jpg");
 }
 #nostalgia {
-  background-image: url("img/nostalgia.bmp");
+  background-image: url("img/nostalgia.jpg");
 }
 #phykos {
-  background-image: url("img/phykos.bmp");
+  background-image: url("img/phykos.jpg");
 }
 #lotus {
-  background-image: url("img/lotus.bmp");
+  background-image: url("img/lotus.jpg");
 }
 #memphis {
-  background-image: url("img/memphis.bmp");
+  background-image: url("img/memphis.jpg");
 }
 #deutlich {
-  background-image: url("img/deutlich.bmp");
+  background-image: url("img/deutlich.jpg");
 }
 #sumie {
-  background-image: url("img/sumie.bmp");
+  background-image: url("img/sumie.jpg");
 }
 #rockstar {
-  background-image: url("img/rockstar.bmp");
+  background-image: url("img/rockstar.jpg");
 }
 
 .filter-tag {

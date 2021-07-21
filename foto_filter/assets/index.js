@@ -26,9 +26,7 @@ function filterResetValue() {
   });
 }
 buttonReset.addEventListener('click', filterResetValue);
-// Next button
-const buttonNext = document.querySelector('.btn-next');
-const image = document.querySelector('img');
+let image = document.querySelector('img');
 let _imageIndexCounter = 1;
 
 function timeDeterminator() {
@@ -64,9 +62,19 @@ buttonLoad.addEventListener('change', uploadImage);
 const buttonSave = document.querySelector('.btn-save');
 
 function saveImage() {
+  
   const img = new Image();
+  let filteredImg =  document.querySelector('img');
+
   img.setAttribute('crossOrigin', 'anonymous');
-  img.src = image.src;
+  
+  console.log(image);
+  console.log(filteredImg);
+  img.src = filteredImg.src;
+  // if (img.hidden=='hidden'){
+  //   filteredImg=getElementById('filteredPhoto');
+  //   img.src = filteredImg.src;
+  // }
   const canvas = document.querySelector('.canvas');
   const inputs = filters.querySelectorAll('input');
   const filterValues = {};

@@ -56,6 +56,7 @@ Filterous.prototype = {
     	}
         
         this.imgObj.setAttribute('hidden', 'hidden');
+				console.log(this.imgObj);
     },
     
     createNewImgObj: function(format) {
