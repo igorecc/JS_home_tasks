@@ -354,6 +354,24 @@ nav {
     /* width: 500px;*/
   }
 }
+@media (max-width: 860px) {
+  .filter {
+    max-width: 50px;
+    max-height: 50px;
+  }
+  .filter-tag {
+    font-size: 10px;
+    padding-top: 40px;
+  }
+}
+@media (max-width: 665px) {
+    #filterButtons{
+    display: flex;
+    flex-wrap:wrap
+    }
+  .filter-tag {
+    padding-top: 2px;
+  }
 :not(:root):fullscreen::backdrop {
   background-color: #313940;
 }
